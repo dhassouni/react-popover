@@ -1,4 +1,5 @@
-import { createElement, createClass, DOM as E, PropTypes as T } from 'react'
+import React, { createElement, createClass, DOM as E, PropTypes as T } from 'react'
+import { Provider } from 'react-redux';
 import { findDOMNode } from 'react-dom'
 import Debug from 'debug'
 import throttle from 'lodash.throttle'
@@ -10,6 +11,22 @@ import { isServer, window } from './platform'
 import { arrayify, clientOnly } from './utils'
 import Tip from './tip'
 
+import classes from './popover.css';
+
+export const ContextProvider = React.createClass({
+  // This will add store, history and router to the child's context
+  getChildContext() {
+    return this.props.context
+  },
+  childContextTypes: {
+    store: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object,
+    router: React.PropTypes.object
+  },
+  render() {
+    return this.props.children
+  }
+})
 
 
 const log = Debug(`react-popover`)
@@ -428,6 +445,11 @@ const Popover = createClass({
   measureFrameBounds () {
     this.frameBounds = Layout.El.calcBounds(this.frameEl)
   },
+  contextTypes: {
+    store   : React.PropTypes.object,
+    history : React.PropTypes.object,
+    router  : React.PropTypes.object,
+  },
   renderLayer () {
     if (this.state.exited) return null
 
@@ -435,7 +457,7 @@ const Popover = createClass({
 
     const popoverProps = {
       className: `Popover ${className}`,
-      style: { ...coreStyle, ...style }
+      style: Object.assign({}, coreStyle, style)
     }
 
     const tipProps = {
@@ -443,26 +465,21 @@ const Popover = createClass({
       size: this.props.tipSize,
     }
 
-    /* If we pass array of nodes to component children React will complain that each
-    item should have a key prop. This is not a valid requirement in our case. Users
-    should be able to give an array of elements applied as if they were just normal
-    children of the body component (note solution is to spread array items as args). */
-
-    const popoverBody = arrayify(this.props.body)
-
     return (
-      E.div(popoverProps,
-        E.div({ className: `Popover-body` }, ...popoverBody),
-        createElement(Tip, tipProps)
-      )
+      <ContextProvider context={this.context}>
+        <div {...popoverProps}>
+          <div className="Popover-body">
+            {this.props.body}
+          </div>
+          {createElement(Tip, tipProps)}
+        </div>
+      </ContextProvider>
     )
   },
   render () {
     return this.props.children
   },
 })
-
-
 
 // Support for CJS
 // http://stackoverflow.com/questions/33505992/babel-6-changes-how-it-exports-default
