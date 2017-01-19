@@ -4,7 +4,7 @@
     "clean": "rm -rf build",
     "build-examples": "npm run clean && webpack",
     "deploy-demos": "git checkout gh-pages && git merge master --no-edit && npm run build-examples && git add -A && git commit -m 'Update demos' && git push && git checkout master",
-    "build": "npm run clean && babel --out-dir build lib",
+    /*"build": "npm run clean && babel --out-dir build lib",*/
     "dev": "npm start",
     "test": "testem",
     "start": "webpack-dev-server --hot",
