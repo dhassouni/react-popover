@@ -15,7 +15,7 @@
   "author": "Jason Kuhrt <jasonkuhrt@me.com> (http://jasonkuhrt.com/)",
   "name": "@dhassouni/react-popover",
   "homepage": "https://github.com/dhassouni/react-popover",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "src/index.js",
   "description": "A specification backed popover for react - dhassouni fork",
   "devDependencies": {
