@@ -45,10 +45,6 @@ var _tip = require('./tip');
 
 var _tip2 = _interopRequireDefault(_tip);
 
-var _popover = require('./popover.css');
-
-var _popover2 = _interopRequireDefault(_popover);
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -517,5 +513,6 @@ var Popover = (0, _react.createClass)({
   }
 });
 
+// Support for CJS
 // http://stackoverflow.com/questions/33505992/babel-6-changes-how-it-exports-default
 module.exports = Popover;
