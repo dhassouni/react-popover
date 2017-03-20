@@ -3,3 +3,5 @@ This version of react-popover is forked from MrBlenny/react-popover, which is in
 MrBlenny/react-popover was modified to support `redux` and `react-router`, but contained JSX and required alternate build directions than other included repos.
 
 This version is compiled.
+
+This repo is no longer necessary as littlebits has addressed the issue in the main branch now (see https://github.com/littlebits/react-popover/issues/77 for details about the issue and fix).
